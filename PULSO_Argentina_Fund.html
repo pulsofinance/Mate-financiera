@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>PULSO Argentina Fund — Exposición Oral</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: #f4f6fa;
+      color: #1a1a2e;
+      line-height: 1.7;
+    }
+    header {
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 60%, #0f3460 100%);
+      color: white;
+      padding: 48px 40px 36px;
+      border-bottom: 4px solid #e94560;
+    }
+    header h1 { font-size: 2.2rem; letter-spacing: 1px; }
+    header p { font-size: 1rem; opacity: 0.75; margin-top: 6px; }
+    .badge {
+      display: inline-block;
+      background: #e94560;
+      color: white;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 20px;
+      margin-bottom: 12px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+    main { max-width: 960px; margin: 40px auto; padding: 0 24px 60px; }
+
+    /* SECTION TITLES */
+    .section-title {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: #0f3460;
+      border-left: 5px solid #e94560;
+      padding-left: 14px;
+      margin: 48px 0 20px;
+    }
+
+    /* INTRO BOX */
+    .intro-box {
+      background: white;
+      border-radius: 12px;
+      padding: 28px 32px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+      margin-bottom: 16px;
+    }
+    .intro-box blockquote {
+      border-left: 4px solid #e94560;
+      padding-left: 16px;
+      font-style: italic;
+      color: #444;
+      margin-top: 14px;
+    }
+
+    /* TRAMO CARDS */
+    .tramo {
+      background: white;
+      border-radius: 14px;
+      padding: 30px 32px;
+      box-shadow: 0 2px 14px rgba(0,0,0,0.07);
+      margin-bottom: 28px;
+      border-top: 5px solid #0f3460;
+      position: relative;
+    }
+    .tramo.energy  { border-top-color: #e94560; }
+    .tramo.cer     { border-top-color: #457b9d; }
+    .tramo.equity  { border-top-color: #2a9d8f; }
+    .tramo.on      { border-top-color: #e9c46a; }
+    .tramo.prov    { border-top-color: #f4a261; }
+    .tramo.liq     { border-top-color: #a8dadc; }
+
+    .tramo-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 18px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .tramo-title { font-size: 1.2rem; font-weight: 700; color: #1a1a2e; }
+    .tramo-pct {
+      font-size: 2rem;
+      font-weight: 800;
+      color: #e94560;
+      line-height: 1;
+    }
+    .tramo-instruments {
+      font-size: 0.85rem;
+      color: #555;
+      margin-bottom: 14px;
+      font-weight: 600;
+    }
+    .tramo-instruments span {
+      background: #f0f4ff;
+      border: 1px solid #c8d6f5;
+      border-radius: 6px;
+      padding: 2px 8px;
+      margin-right: 6px;
+      display: inline-block;
+      margin-bottom: 4px;
+    }
+
+    h3 { font-size: 1rem; color: #0f3460; margin: 18px 0 8px; font-weight: 700; }
+
+    .formula-box {
+      background: #f8f9ff;
+      border: 1px solid #d0d8f0;
+      border-radius: 8px;
+      padding: 14px 18px;
+      font-family: 'Courier New', monospace;
+      font-size: 0.92rem;
+      color: #1a1a2e;
+      margin: 10px 0 14px;
+      overflow-x: auto;
+    }
+
+    .research-list {
+      list-style: none;
+      padding: 0;
+      margin-top: 10px;
+    }
+    .research-list li {
+      padding: 7px 0 7px 18px;
+      border-bottom: 1px solid #f0f0f0;
+      position: relative;
+      font-size: 0.93rem;
+    }
+    .research-list li:last-child { border-bottom: none; }
+    .research-list li::before {
+      content: "▸";
+      position: absolute;
+      left: 0;
+      color: #e94560;
+      font-size: 0.8rem;
+      top: 8px;
+    }
+    .bank-tag {
+      font-weight: 700;
+      color: #0f3460;
+    }
+
+    /* METRICS TABLE */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+      font-size: 0.93rem;
+    }
+    thead tr { background: #0f3460; color: white; }
+    thead th { padding: 10px 14px; text-align: left; }
+    tbody tr:nth-child(even) { background: #f4f6fa; }
+    tbody td { padding: 9px 14px; border-bottom: 1px solid #e8e8e8; }
+    tbody td:first-child { font-weight: 600; }
+
+    /* RISK TABLE */
+    .risk-table tbody td:nth-child(2) { color: #c0392b; font-weight: 600; }
+    .risk-table tbody td:last-child { color: #27ae60; }
+
+    /* CLOSING */
+    .closing {
+      background: linear-gradient(135deg, #1a1a2e, #0f3460);
+      color: white;
+      border-radius: 14px;
+      padding: 32px 36px;
+      margin-top: 40px;
+    }
+    .closing h2 { font-size: 1.1rem; color: #e94560; margin-bottom: 14px; letter-spacing: 1px; text-transform: uppercase; }
+    .closing p { font-size: 1rem; line-height: 1.8; opacity: 0.9; font-style: italic; }
+
+    footer {
+      text-align: center;
+      font-size: 0.8rem;
+      color: #999;
+      padding: 24px;
+      margin-top: 20px;
+    }
+
+    @media (max-width: 600px) {
+      header { padding: 30px 20px; }
+      main { padding: 0 14px 40px; }
+      .tramo { padding: 22px 18px; }
+      .tramo-pct { font-size: 1.6rem; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="badge">Matemática Financiera — Exposición Oral</div>
+  <h1>PULSO Argentina Balanced Fund</h1>
+  <p>Fondo de inversión construido a partir de la síntesis de 20 research de bancos globales · Mayo 2026</p>
+</header>
+
+<main>
+
+  <!-- CONTEXTO MACRO -->
+  <div class="section-title">Parte 1 — Contexto Macro</div>
+  <div class="intro-box">
+    <p>Argentina en mayo 2026 muestra una <strong>recuperación bifurcada</strong>: el sector energético y agropecuario están en máximos históricos (superávit comercial récord de USD 2.711B en abril, exportaciones energéticas +85.9% interanual), pero el consumo privado, los salarios reales y el crédito están deprimidos.</p>
+    <p style="margin-top:12px;">Fitch acaba de subir la calificación de <strong>CCC+ a B−</strong>, lo que abre la puerta a inversores institucionales que antes no podían comprar deuda argentina por restricciones de rating.</p>
+    <blockquote>
+      "Los bancos coinciden en que Argentina tiene una ventana de oportunidad real, pero estrecha — el riesgo electoral 2027 ya se está pricando en los activos largos."
+    </blockquote>
+  </div>
+
+  <!-- ESTRUCTURA DEL FONDO -->
+  <div class="section-title">Parte 2 — Estructura del Fondo</div>
+
+  <!-- TRAMO 1 -->
+  <div class="tramo energy">
+    <div class="tramo-header">
+      <div>
+        <div class="tramo-title">Tramo 1 — Bonos Soberanos USD Cortos</div>
+        <div class="tramo-instruments">
+          <span>GD28</span><span>GD29</span>
+          <span style="background:#fff0f0;border-color:#f5c6cb;">Rendimiento: 8.5–9% TNA en USD</span>
+        </div>
+      </div>
+      <div class="tramo-pct">25%</div>
+    </div>
+
+    <h3>Teoría: Valuación de Bonos y Duration</h3>
+    <p>Un bono se valúa como el valor presente de sus flujos futuros:</p>
+    <div class="formula-box">
+P = Σ [ C / (1+r)^t ] + VN / (1+r)^n
+    </div>
+    <p>La <strong>Duration de Macaulay</strong> mide la sensibilidad del precio ante cambios en tasas:</p>
+    <div class="formula-box">
+D = [ Σ t · C/(1+r)^t  +  n · VN/(1+r)^n ] / P
+    </div>
+    <p>A mayor duration, mayor sensibilidad a tasas. Con <strong>JPMorgan y Grupo SBS</strong> alertando sobre una suba del Fed con 80% de probabilidad para diciembre 2026, los bonos largos sufren más. Los bonos cortos (2028–2029) tienen menor duration → <strong>menor riesgo de tasa</strong>.</p>
+
+    <h3>Justificación desde los Research</h3>
+    <ul class="research-list">
+      <li><span class="bank-tag">BofA Securities:</span> entrada BONCER 2028 a 84.5, target 92.0 — implica +8.9% de ganancia de capital más el cupón.</li>
+      <li><span class="bank-tag">Mariva:</span> OW en soberanos con 12% de upside; recomienda cortos por contexto global de tasas altas.</li>
+      <li><span class="bank-tag">IEB Research:</span> el upgrade de Fitch a B− fue el catalizador — habilita fondos institucionales que por mandato no podían comprar CCC+.</li>
+    </ul>
+  </div>
+
+  <!-- TRAMO 2 -->
+  <div class="tramo cer">
+    <div class="tramo-header">
+      <div>
+        <div class="tramo-title">Tramo 2 — CER Largo</div>
+        <div class="tramo-instruments">
+          <span>TZXS8</span><span>DICP</span>
+          <span style="background:#f0f8ff;border-color:#b8d8f5;">Rendimiento: CER + 5% a CER + 8.3% real</span>
+        </div>
+      </div>
+      <div class="tramo-pct">20%</div>
+    </div>
+
+    <h3>Teoría: Bonos Indexados a Inflación y Ecuación de Fisher</h3>
+    <p>La <strong>Ecuación de Fisher</strong> relaciona tasa nominal, real e inflación:</p>
+    <div class="formula-box">
+(1 + r_nominal) = (1 + r_real) × (1 + π)
+    </div>
+    <p>Un bono CER ajusta su capital por el índice de precios, protegiendo al inversor de la inflación. El spread adicional (CER + X%) es la ganancia real por encima de la inflación.</p>
+    <p style="margin-top:10px;"><strong>¿Por qué CER largo?</strong> Bull Capital identifica una <strong>dislocación de liquidez</strong>: el spread entre TZXD7 y TZXS8 es de +300bps para solo un año adicional de duration — una ineficiencia de mercado explotable.</p>
+
+    <h3>Justificación desde los Research</h3>
+    <ul class="research-list">
+      <li><span class="bank-tag">Bull Capital:</span> spread de +300bps entre instrumentos de similar riesgo = mispricing por razones de liquidez, no macro.</li>
+      <li><span class="bank-tag">Parakeet Capital:</span> proyecta TIR del 29.5% en instrumentos de fin de 2026; rotación hacia largo para horizonte 18 meses.</li>
+      <li><span class="bank-tag">BCRA REM:</span> inflación proyectada 2.1% (mayo) → 1.7% (junio), trayectoria decreciente protege el capital real.</li>
+    </ul>
+  </div>
+
+  <!-- TRAMO 3 -->
+  <div class="tramo equity">
+    <div class="tramo-header">
+      <div>
+        <div class="tramo-title">Tramo 3 — Acciones Oil & Gas</div>
+        <div class="tramo-instruments">
+          <span>VIST</span><span>PAM</span><span>YPF</span>
+          <span style="background:#f0fff8;border-color:#b8f5d8;">Upside: 12–25% proyectado</span>
+        </div>
+      </div>
+      <div class="tramo-pct">20%</div>
+    </div>
+
+    <h3>Teoría: DCF y EV/EBITDA</h3>
+    <p>Las acciones se valúan como el valor presente de los flujos de caja futuros:</p>
+    <div class="formula-box">
+V = Σ [ FCF_t / (1+WACC)^t ] + VT / (1+WACC)^n
+    </div>
+    <p>El <strong>WACC</strong> baja cuando mejora el riesgo país. Con el upgrade de Fitch, el WACC de las empresas argentinas se comprime → el valor intrínseco <strong>sube aunque los flujos no cambien</strong>.</p>
+    <p style="margin-top:10px;">El múltiplo <strong>EV/EBITDA</strong> se comprime cuando los resultados operativos crecen:</p>
+    <ul style="margin: 8px 0 0 20px; font-size:0.93rem;">
+      <li>Pampa EBITDA: +48% YoY → precio target USD 110 (Mariva)</li>
+      <li>TGS EBITDA: +19% YoY → precio target USD 43.6 (Mariva)</li>
+    </ul>
+
+    <h3>Justificación desde los Research</h3>
+    <ul class="research-list">
+      <li><span class="bank-tag">1816:</span> exportaciones O&G proyectadas en USD 43B anuales — el doble de una cosecha récord de soja. Transformación estructural, no cíclica.</li>
+      <li><span class="bank-tag">Balanz:</span> importaciones de combustible cayeron 45% por autosuficiencia de Vaca Muerta — margen exportador permanente.</li>
+      <li><span class="bank-tag">Facimex:</span> USD 100B+ en proyectos RIGI aprobados + Chevron anunciando USD 10B+ → flujo de inversión masivo.</li>
+      <li><span class="bank-tag">IEB Research:</span> el Merval está rezagado respecto al rally de bonos — hay catch-up pendiente, especialmente en O&G.</li>
+    </ul>
+  </div>
+
+  <!-- TRAMO 4 -->
+  <div class="tramo on">
+    <div class="tramo-header">
+      <div>
+        <div class="tramo-title">Tramo 4 — Obligaciones Negociables Corporativas</div>
+        <div class="tramo-instruments">
+          <span>YPF ON</span><span>TGS ON</span><span>PAE ON</span>
+          <span style="background:#fffdf0;border-color:#f5e8b8;">Rendimiento: 7–9% en USD</span>
+        </div>
+      </div>
+      <div class="tramo-pct">15%</div>
+    </div>
+
+    <h3>Teoría: Spread de Crédito y Diversificación de Markowitz</h3>
+    <p>El rendimiento de una ON corporativa se descompone como:</p>
+    <div class="formula-box">
+r_ON = r_libre de riesgo + spread_soberano + spread_corporativo
+    </div>
+    <p>Las ONs de YPF/TGS/PAE tienen <strong>ingresos dolarizados</strong> (exportan), lo que las hace menos vulnerables a la devaluación que empresas que venden en pesos.</p>
+    <p style="margin-top:10px;">El principio de <strong>diversificación de Markowitz</strong> establece que activos con correlación imperfecta reducen el riesgo total de la cartera para el mismo retorno esperado. En escenarios de stress político, una empresa exportadora puede ser más robusta que el soberano.</p>
+
+    <h3>Justificación desde los Research</h3>
+    <ul class="research-list">
+      <li><span class="bank-tag">Mariva:</span> targets concretos con margen de seguridad, EBITDA batiendo estimaciones en ambas empresas.</li>
+      <li><span class="bank-tag">1816:</span> carry trade en pesos generó 100% de retorno desde diciembre 2023 — la dolarización de ingresos es la cobertura natural.</li>
+    </ul>
+  </div>
+
+  <!-- TRAMO 5 -->
+  <div class="tramo prov">
+    <div class="tramo-header">
+      <div>
+        <div class="tramo-title">Tramo 5 — Bonos Provinciales</div>
+        <div class="tramo-instruments">
+          <span>Córdoba 2029</span><span>Mendoza 2029</span>
+          <span style="background:#fff8f0;border-color:#f5d0b8;">Yield pickup: +80–120bps vs. soberanos</span>
+        </div>
+      </div>
+      <div class="tramo-pct">10%</div>
+    </div>
+
+    <h3>Teoría: Yield Pickup y Análisis Relativo de Valor (TIR)</h3>
+    <p>El <strong>rendimiento al vencimiento (TIR)</strong> permite comparar instrumentos de distinto perfil. Si dos bonos tienen duration similar pero yields distintos, el de mayor yield es preferible salvo que el diferencial esté justificado por mayor riesgo.</p>
+    <p style="margin-top:10px;">Facimex identifica que el spread de Córdoba 29 vs. GD29 es <strong>excesivo</strong> dado que Córdoba tiene superávit fiscal propio, acceso autónomo al mercado de capitales y menor exposición al riesgo electoral nacional.</p>
+
+    <h3>Justificación desde los Research</h3>
+    <ul class="research-list">
+      <li><span class="bank-tag">Facimex:</span> rotación explícita recomendada — soberanos cortos → Córdoba 29 / Mendoza 29 por yield pickup con riesgo similar.</li>
+      <li><span class="bank-tag">IEB Research:</span> CABA emitió USD 500M a 7.375% (mínimo histórico desde 1996) post-Fitch — las provincias de grado son beneficiarias directas del upgrade.</li>
+    </ul>
+  </div>
+
+  <!-- TRAMO 6 -->
+  <div class="tramo liq">
+    <div class="tramo-header">
+      <div>
+        <div class="tramo-title">Tramo 6 — Duales TAMAR-CER (Liquidez)</div>
+        <div class="tramo-instruments">
+          <span>TZXO6</span><span>Duales cortos</span>
+          <span style="background:#f0feff;border-color:#b8eef5;">Función: reserva de liquidez con cobertura dual</span>
+        </div>
+      </div>
+      <div class="tramo-pct">10%</div>
+    </div>
+
+    <h3>Teoría: Opcionalidad y Valor de la Flexibilidad</h3>
+    <p>Un instrumento <strong>dual</strong> paga el mayor entre dos tasas (TAMAR o CER). Esto equivale a tener un bono más una <strong>opción call gratuita</strong> sobre la tasa más favorable:</p>
+    <div class="formula-box">
+V_dual = V_CER + Call(TAMAR − CER)
+    </div>
+    <p>En contexto de incertidumbre sobre si dominará la inflación o las tasas nominales, el instrumento dual es óptimo para la porción de liquidez de la cartera.</p>
+    <p style="margin-top:10px;"><strong>¿Por qué el 10% en liquidez?</strong> Parakeet alerta sobre el <strong>cliff de julio</strong>: vencimientos estacionales obligan al Tesoro a una decisión binaria (inyectar pesos o subir tasas). Tener liquidez disponible permite aprovechar el repricing que puede generar ese evento.</p>
+
+    <h3>Justificación desde los Research</h3>
+    <ul class="research-list">
+      <li><span class="bank-tag">Parakeet Capital:</span> demanda estacional de pesos +14% en julio; el Tesoro enfrenta decisión binaria que puede generar volatilidad táctica.</li>
+      <li><span class="bank-tag">Balanz Capital:</span> TZXO6 + Rofex hedge captura protección CER+FX simultáneamente hasta junio.</li>
+    </ul>
+  </div>
+
+  <!-- BAJO LA PAR -->
+  <div class="section-title">Parte 3 — Los Bonos Argentinos Cotizan Bajo la Par</div>
+  <div class="tramo" style="border-top-color:#e94560;">
+    <h3>Evidencia en los Research</h3>
+    <p>Los research confirman que los bonos soberanos argentinos cotizan <strong>por debajo de su valor nominal (bajo la par)</strong>:</p>
+    <ul class="research-list">
+      <li><span class="bank-tag">BofA Securities:</span> recomienda entrada al BONCER 2028 a precio <strong>84.5</strong> sobre un valor nominal de 100 — esto es 15.5 puntos bajo la par.</li>
+      <li><span class="bank-tag">1816:</span> el GD35 cotiza a rendimiento de <strong>9.8% TNA</strong> — a esa yield, el precio de mercado está necesariamente por debajo de 100.</li>
+      <li><span class="bank-tag">Balanz:</span> tras el upgrade de Fitch a B−, los Globals <strong>rallaron 2.8%</strong> — partían de precios deprimidos bajo la par y se acercaron a ella.</li>
+    </ul>
+
+    <h3 style="margin-top:22px;">¿Qué significa que un bono esté Bajo la Par, a la Par o Sobre la Par?</h3>
+    <div class="formula-box">
+Valor Nominal (Par) = 100  →  precio de emisión original del bono
+
+Bajo la par   →  precio &lt; 100  (ej: 84.5)   →  el mercado exige más rendimiento del que paga el cupón
+A la par      →  precio = 100               →  el rendimiento del cupón iguala la tasa de mercado
+Sobre la par  →  precio &gt; 100  (ej: 105)   →  el cupón es mayor que la tasa de mercado, el bono vale más
+    </div>
+
+    <h3>¿Por qué cotizan bajo la par en Argentina?</h3>
+    <p>Cuando el <strong>riesgo país es alto</strong>, los inversores exigen un rendimiento mayor al cupón del bono para compensar ese riesgo. Para que el rendimiento efectivo suba, el precio del bono <strong>tiene que bajar</strong> — esa es la relación inversa entre precio y tasa.</p>
+    <div class="formula-box">
+Si tasa de mercado &gt; cupón  →  precio baja  →  bono cotiza BAJO LA PAR
+Si tasa de mercado &lt; cupón  →  precio sube  →  bono cotiza SOBRE LA PAR
+    </div>
+
+    <h3>¿Por qué es una oportunidad para el fondo?</h3>
+    <p>Un bono comprado bajo la par tiene <strong>dos fuentes de retorno</strong>:</p>
+    <ul class="research-list">
+      <li><strong>Cupón:</strong> el pago periódico de intereses (8.5–9% TNA en los soberanos argentinos).</li>
+      <li><strong>Ganancia de capital:</strong> si el riesgo país comprime (como está ocurriendo post-Fitch), el precio del bono sube hacia la par — el inversor gana la diferencia. BofA proyecta este recorrido de 84.5 → 92.0 en el BONCER 2028.</li>
+    </ul>
+  </div>
+
+  <!-- MÉTRICAS -->
+  <div class="section-title">Parte 4 — Métricas del Fondo</div>
+  <div class="intro-box">
+    <table>
+      <thead>
+        <tr><th>Métrica</th><th>Valor Estimado</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>TIR esperada del fondo</td><td>18–22% en USD (18 meses)</td></tr>
+        <tr><td>Duration promedio ponderada</td><td>~2.1 años</td></tr>
+        <tr><td>Exposición USD</td><td>70%</td></tr>
+        <tr><td>Exposición CER / Pesos</td><td>30%</td></tr>
+        <tr><td>Sharpe Ratio estimado</td><td>1.4–1.8 (según compresión de spreads)</td></tr>
+        <tr><td>Horizonte de inversión</td><td>18 meses (mayo 2026 – noviembre 2027)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- RIESGOS -->
+  <div class="section-title">Parte 4 — Riesgos del Fondo</div>
+  <div class="intro-box">
+    <table class="risk-table">
+      <thead>
+        <tr><th>Riesgo</th><th>Fuente (Research)</th><th>Mitigación en el Fondo</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Suba del Fed (80% prob. dic 2026)</td>
+          <td>JPMorgan, Grupo SBS</td>
+          <td>Duration corta en Tramo 1</td>
+        </tr>
+        <tr>
+          <td>Riesgo electoral 2027</td>
+          <td>1816, Barclays</td>
+          <td>Sin exposición a bonos 2031+</td>
+        </tr>
+        <tr>
+          <td>Mora privada al 11.5%</td>
+          <td>1816</td>
+          <td>Sin exposición al sector bancario</td>
+        </tr>
+        <tr>
+          <td>Cliff de financiamiento en julio</td>
+          <td>Parakeet Capital</td>
+          <td>10% en duales líquidos (Tramo 6)</td>
+        </tr>
+        <tr>
+          <td>Apreciación real del peso</td>
+          <td>BofA (FX $1,900 para 2027)</td>
+          <td>70% de la cartera dolarizada</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- CIERRE -->
+  <div class="closing">
+    <h2>Cierre de Exposición</h2>
+    <p>
+      "El PULSO Argentina Fund no es una apuesta a Argentina — es una lectura sistemática de lo que 20 mesas de research de los bancos más importantes del mundo recomiendan hoy. Cada posición tiene una justificación teórica en matemática financiera y un respaldo empírico en los datos. El fondo captura la ventana de oportunidad del upgrade de Fitch, la transformación energética de Vaca Muerta, y se protege de los dos riesgos principales: la suba del Fed y el ruido electoral de 2027."
+    </p>
+  </div>
+
+</main>
+
+<footer>
+  PULSO Finance · Síntesis de 20 research bancarios · Mayo 2026 · Exposición Oral — Matemática Financiera
+</footer>
+
+</body>
+</html>
