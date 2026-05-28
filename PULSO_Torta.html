@@ -3,131 +3,537 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>PULSO Argentina Fund — Allocacion</title>
+  <title>PULSO Argentina Fund - Allocacion y Explicaciones</title>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: 'Segoe UI', Arial, sans-serif;
-      background: #f4f6fa;
-      color: #1a1a2e;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 40px 20px 60px;
+    body { font-family: 'Segoe UI', Arial, sans-serif; background: #f4f6fa; color: #1a1a2e; line-height: 1.7; }
+
+    /* HEADER */
+    header {
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 60%, #0f3460 100%);
+      color: white; padding: 48px 40px 36px; border-bottom: 4px solid #e94560; text-align: center;
     }
-    header { text-align: center; margin-bottom: 36px; }
+    header h1 { font-size: 2rem; letter-spacing: 1px; }
+    header p { font-size: 0.95rem; opacity: 0.75; margin-top: 6px; }
     .badge {
-      display: inline-block;
-      background: #e94560;
-      color: white;
-      font-size: 0.72rem;
-      font-weight: 700;
-      padding: 3px 12px;
-      border-radius: 20px;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      margin-bottom: 10px;
+      display: inline-block; background: #e94560; color: white; font-size: 0.72rem;
+      font-weight: 700; padding: 3px 12px; border-radius: 20px; letter-spacing: 1px;
+      text-transform: uppercase; margin-bottom: 10px;
     }
-    header h1 { font-size: 1.9rem; color: #1a1a2e; font-weight: 800; }
-    header p { font-size: 0.9rem; color: #666; margin-top: 6px; }
-    .card {
-      background: white;
-      border-radius: 18px;
-      box-shadow: 0 4px 24px rgba(0,0,0,0.09);
-      padding: 36px 40px;
-      width: 100%;
-      max-width: 780px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 32px;
+
+    main { max-width: 900px; margin: 0 auto; padding: 40px 24px 80px; }
+
+    /* TORTA */
+    .torta-card {
+      background: white; border-radius: 18px; box-shadow: 0 4px 24px rgba(0,0,0,0.09);
+      padding: 36px 40px; display: flex; flex-direction: column; align-items: center; gap: 32px;
+      margin-bottom: 48px;
     }
-    .chart-wrap { position: relative; width: 340px; height: 340px; }
+    .chart-wrap { position: relative; width: 320px; height: 320px; }
     .legend { width: 100%; display: flex; flex-direction: column; gap: 10px; }
     .legend-item {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      padding: 10px 16px;
-      border-radius: 10px;
-      background: #f8f9fb;
-      border: 1px solid #ececec;
+      display: flex; align-items: center; gap: 14px; padding: 10px 16px;
+      border-radius: 10px; background: #f8f9fb; border: 1px solid #ececec;
     }
     .legend-item:hover { background: #eef1f8; }
     .color-dot { width: 18px; height: 18px; border-radius: 50%; flex-shrink: 0; }
     .legend-label { flex: 1; font-size: 0.92rem; font-weight: 600; color: #1a1a2e; }
-    .legend-instruments { font-size: 0.78rem; color: #888; font-weight: 400; }
-    .legend-pct { font-size: 1.25rem; font-weight: 800; color: #1a1a2e; min-width: 46px; text-align: right; }
+    .legend-sub { font-size: 0.78rem; color: #888; font-weight: 400; }
+    .legend-pct { font-size: 1.2rem; font-weight: 800; color: #1a1a2e; min-width: 46px; text-align: right; }
     .total-row {
-      width: 100%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-top: 2px solid #e94560;
-      padding-top: 12px;
-      font-weight: 700;
-      font-size: 0.95rem;
+      width: 100%; display: flex; justify-content: space-between; align-items: center;
+      border-top: 2px solid #e94560; padding-top: 12px; font-weight: 700; font-size: 0.95rem;
     }
     .total-row span:last-child { font-size: 1.3rem; color: #e94560; }
-    footer { margin-top: 32px; font-size: 0.78rem; color: #aaa; text-align: center; }
+
+    /* SECTION TITLES */
+    .section-title {
+      font-size: 1.3rem; font-weight: 700; color: #0f3460;
+      border-left: 5px solid #e94560; padding-left: 14px; margin: 48px 0 20px;
+    }
+
+    /* EXPLICACION CARDS */
+    .expl-card {
+      background: white; border-radius: 14px; padding: 28px 32px;
+      box-shadow: 0 2px 14px rgba(0,0,0,0.07); margin-bottom: 28px;
+      border-top: 5px solid #0f3460;
+    }
+    .expl-card.c1 { border-top-color: #e94560; }
+    .expl-card.c2 { border-top-color: #457b9d; }
+    .expl-card.c3 { border-top-color: #2a9d8f; }
+    .expl-card.c4 { border-top-color: #e9c46a; }
+    .expl-card.c5 { border-top-color: #f4a261; }
+    .expl-card.c6 { border-top-color: #a8dadc; }
+    .expl-card.cpar { border-top-color: #9b59b6; }
+
+    .expl-header { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+    .expl-title { font-size: 1.15rem; font-weight: 700; color: #1a1a2e; }
+    .expl-pct { font-size: 1.8rem; font-weight: 800; color: #e94560; }
+
+    h4 { font-size: 0.95rem; font-weight: 700; color: #0f3460; margin: 16px 0 6px; }
+    p { font-size: 0.93rem; margin-bottom: 8px; }
+
+    .formula-box {
+      background: #f8f9ff; border: 1px solid #d0d8f0; border-radius: 8px;
+      padding: 14px 18px; font-family: 'Courier New', monospace; font-size: 0.88rem;
+      color: #1a1a2e; margin: 10px 0 14px; overflow-x: auto; white-space: pre-wrap;
+    }
+
+    .ejemplo-box {
+      background: #f0fff8; border: 1px solid #a8e6cf; border-radius: 10px;
+      padding: 16px 20px; margin: 14px 0;
+    }
+    .ejemplo-box.rojo { background: #fff5f5; border-color: #f5c6cb; }
+    .ejemplo-box.amarillo { background: #fffdf0; border-color: #f5e8a8; }
+    .ejemplo-title { font-size: 0.8rem; font-weight: 700; color: #27ae60; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+    .ejemplo-title.rojo { color: #c0392b; }
+    .ejemplo-title.amarillo { color: #d4a017; }
+    .ejemplo-row { display: flex; justify-content: space-between; font-size: 0.9rem; padding: 3px 0; border-bottom: 1px solid rgba(0,0,0,0.06); }
+    .ejemplo-row:last-child { border-bottom: none; font-weight: 700; }
+    .ejemplo-row span:last-child { font-weight: 600; color: #1a1a2e; }
+
+    .research-tag {
+      display: inline-block; background: #eef2ff; border: 1px solid #c5d0f5;
+      border-radius: 6px; padding: 2px 8px; font-size: 0.78rem; font-weight: 700;
+      color: #0f3460; margin: 2px 2px 2px 0;
+    }
+
+    .par-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 14px 0;
+    }
+    .par-box {
+      border-radius: 10px; padding: 16px; text-align: center; border: 2px solid;
+    }
+    .par-box.bajo { background: #fff5f5; border-color: #e94560; }
+    .par-box.ala { background: #f0fff8; border-color: #2a9d8f; }
+    .par-box.sobre { background: #f0f8ff; border-color: #457b9d; }
+    .par-box .par-label { font-size: 0.85rem; font-weight: 700; margin-bottom: 6px; }
+    .par-box .par-precio { font-size: 1.6rem; font-weight: 800; }
+    .par-box .par-desc { font-size: 0.75rem; color: #666; margin-top: 4px; }
+    .par-box.bajo .par-label { color: #e94560; }
+    .par-box.ala .par-label { color: #2a9d8f; }
+    .par-box.sobre .par-label { color: #457b9d; }
+
+    .tipo-cambio-box {
+      background: linear-gradient(135deg, #1a1a2e, #0f3460);
+      color: white; border-radius: 12px; padding: 20px 24px; margin: 14px 0;
+    }
+    .tipo-cambio-box h4 { color: #e94560; margin-bottom: 10px; }
+    .tipo-cambio-box .tc-row { display: flex; justify-content: space-between; padding: 4px 0; font-size: 0.9rem; border-bottom: 1px solid rgba(255,255,255,0.1); }
+    .tipo-cambio-box .tc-row:last-child { border-bottom: none; font-weight: 700; }
+
+    footer { text-align: center; font-size: 0.78rem; color: #aaa; padding: 24px; margin-top: 20px; }
+
+    @media (max-width: 600px) {
+      header { padding: 28px 16px; }
+      main { padding: 24px 14px 60px; }
+      .expl-card { padding: 20px 16px; }
+      .par-grid { grid-template-columns: 1fr; }
+      .torta-card { padding: 24px 16px; }
+    }
   </style>
 </head>
 <body>
+
 <header>
   <div class="badge">Matematica Financiera - Mayo 2026</div>
   <h1>PULSO Argentina Balanced Fund</h1>
-  <p>Allocacion del fondo basada en sintesis de 20 research bancarios</p>
+  <p>Allocacion del fondo + explicacion detallada con ejemplos numericos basados en 20 research bancarios</p>
 </header>
-<div class="card">
-  <div class="chart-wrap">
-    <canvas id="torta"></canvas>
+
+<main>
+
+  <!-- TORTA -->
+  <div class="torta-card">
+    <div class="chart-wrap">
+      <canvas id="torta"></canvas>
+    </div>
+    <div class="legend">
+      <div class="legend-item">
+        <div class="color-dot" style="background:#e94560;"></div>
+        <div class="legend-label">Bonos Soberanos USD Cortos<div class="legend-sub">GD28 - GD29</div></div>
+        <div class="legend-pct">25%</div>
+      </div>
+      <div class="legend-item">
+        <div class="color-dot" style="background:#457b9d;"></div>
+        <div class="legend-label">CER Largo<div class="legend-sub">TZXS8 - DICP</div></div>
+        <div class="legend-pct">20%</div>
+      </div>
+      <div class="legend-item">
+        <div class="color-dot" style="background:#2a9d8f;"></div>
+        <div class="legend-label">Acciones Oil &amp; Gas<div class="legend-sub">VIST - PAM - YPF</div></div>
+        <div class="legend-pct">20%</div>
+      </div>
+      <div class="legend-item">
+        <div class="color-dot" style="background:#e9c46a;"></div>
+        <div class="legend-label">Obligaciones Negociables Corp.<div class="legend-sub">YPF ON - TGS ON - PAE ON</div></div>
+        <div class="legend-pct">15%</div>
+      </div>
+      <div class="legend-item">
+        <div class="color-dot" style="background:#f4a261;"></div>
+        <div class="legend-label">Bonos Provinciales<div class="legend-sub">Cordoba 29 - Mendoza 29</div></div>
+        <div class="legend-pct">10%</div>
+      </div>
+      <div class="legend-item">
+        <div class="color-dot" style="background:#a8dadc;"></div>
+        <div class="legend-label">Duales TAMAR-CER (Liquidez)<div class="legend-sub">TZXO6 - Duales cortos</div></div>
+        <div class="legend-pct">10%</div>
+      </div>
+      <div class="total-row">
+        <span>Total del Fondo</span>
+        <span>100%</span>
+      </div>
+    </div>
   </div>
-  <div class="legend">
-    <div class="legend-item">
-      <div class="color-dot" style="background:#e94560;"></div>
-      <div class="legend-label">Bonos Soberanos USD Cortos<div class="legend-instruments">GD28 - GD29</div></div>
-      <div class="legend-pct">25%</div>
+
+  <!-- SECCION PAR -->
+  <div class="section-title">Que significa Bajo la Par, A la Par y Sobre la Par</div>
+  <div class="expl-card cpar">
+    <p>Todo bono tiene un <strong>valor nominal (par) de 100</strong>. Es el precio al que fue emitido originalmente y al que se devuelve el capital al vencimiento. El precio de mercado puede estar por encima o por debajo segun la tasa que exige el mercado.</p>
+
+    <div class="par-grid">
+      <div class="par-box bajo">
+        <div class="par-label">BAJO LA PAR</div>
+        <div class="par-precio" style="color:#e94560;">84.5</div>
+        <div class="par-desc">El mercado exige mas rendimiento del que paga el cupon. Hay riesgo percibido alto.</div>
+      </div>
+      <div class="par-box ala">
+        <div class="par-label">A LA PAR</div>
+        <div class="par-precio" style="color:#2a9d8f;">100</div>
+        <div class="par-desc">El cupon iguala exactamente la tasa que exige el mercado.</div>
+      </div>
+      <div class="par-box sobre">
+        <div class="par-label">SOBRE LA PAR</div>
+        <div class="par-precio" style="color:#457b9d;">108</div>
+        <div class="par-desc">El cupon es mayor a la tasa de mercado. El bono vale mas que su nominal.</div>
+      </div>
     </div>
-    <div class="legend-item">
-      <div class="color-dot" style="background:#457b9d;"></div>
-      <div class="legend-label">CER Largo<div class="legend-instruments">TZXS8 - DICP</div></div>
-      <div class="legend-pct">20%</div>
-    </div>
-    <div class="legend-item">
-      <div class="color-dot" style="background:#2a9d8f;"></div>
-      <div class="legend-label">Acciones Oil and Gas<div class="legend-instruments">VIST - PAM - YPF</div></div>
-      <div class="legend-pct">20%</div>
-    </div>
-    <div class="legend-item">
-      <div class="color-dot" style="background:#e9c46a;"></div>
-      <div class="legend-label">Obligaciones Negociables Corp.<div class="legend-instruments">YPF ON - TGS ON - PAE ON</div></div>
-      <div class="legend-pct">15%</div>
-    </div>
-    <div class="legend-item">
-      <div class="color-dot" style="background:#f4a261;"></div>
-      <div class="legend-label">Bonos Provinciales<div class="legend-instruments">Cordoba 29 - Mendoza 29</div></div>
-      <div class="legend-pct">10%</div>
-    </div>
-    <div class="legend-item">
-      <div class="color-dot" style="background:#a8dadc;"></div>
-      <div class="legend-label">Duales TAMAR-CER (Liquidez)<div class="legend-instruments">TZXO6 - Duales cortos</div></div>
-      <div class="legend-pct">10%</div>
-    </div>
-    <div class="total-row">
-      <span>Total del Fondo</span>
-      <span>100%</span>
+
+    <h4>Relacion inversa: precio y tasa siempre se mueven en sentido contrario</h4>
+    <div class="formula-box">Si la tasa de mercado SUBE  -->  el precio del bono BAJA  (bajo la par)
+Si la tasa de mercado BAJA  -->  el precio del bono SUBE  (sobre la par)</div>
+
+    <h4>Por que los bonos argentinos estan bajo la par (segun los research)</h4>
+    <p>El riesgo pais elevado obliga a los inversores a exigir tasas altas para compensar el riesgo. Como el cupon ya esta fijo, el precio tiene que bajar para que el rendimiento efectivo sea mayor.</p>
+    <span class="research-tag">BofA: BONCER 2028 a 84.5</span>
+    <span class="research-tag">1816: GD35 al 9.8% TNA</span>
+    <span class="research-tag">Balanz: rally 2.8% post-Fitch</span>
+
+    <div class="ejemplo-box amarillo" style="margin-top:14px;">
+      <div class="ejemplo-title amarillo">Oportunidad: el camino de 84.5 a 100</div>
+      <div class="ejemplo-row"><span>Precio de compra hoy</span><span>84.5</span></div>
+      <div class="ejemplo-row"><span>Precio objetivo (BofA, 12 meses)</span><span>92.0</span></div>
+      <div class="ejemplo-row"><span>Ganancia de capital sola</span><span>+8.9%</span></div>
+      <div class="ejemplo-row"><span>+ Cupon anual en USD</span><span>+8.5%</span></div>
+      <div class="ejemplo-row"><span>Retorno total estimado</span><span>+17.4% en USD</span></div>
     </div>
   </div>
-</div>
-<footer>PULSO Finance - Sintesis de 20 research bancarios - Exposicion Oral Matematica Financiera</footer>
+
+  <!-- EXPLICACIONES POR TRAMO -->
+  <div class="section-title">Explicacion detallada por tramo del fondo</div>
+
+  <!-- TRAMO 1 - SOBERANOS -->
+  <div class="expl-card c1">
+    <div class="expl-header">
+      <div>
+        <div class="expl-title">Tramo 1 - Bonos Soberanos del Estado Argentino</div>
+        <div style="font-size:0.85rem;color:#666;margin-top:4px;">GD28 / GD29 &nbsp;|&nbsp; Rendimiento: 8.5-9% en USD</div>
+      </div>
+      <div class="expl-pct">25%</div>
+    </div>
+
+    <h4>Que son</h4>
+    <p>Son bonos emitidos por el <strong>Estado Nacional argentino</strong> en dolares. Cuando compras uno, le estas prestando plata al gobierno, que te devuelve el capital al vencimiento y te paga un cupon (interes) periodico.</p>
+
+    <h4>Por que los recomienda PULSO</h4>
+    <p>Fitch subio la calificacion de Argentina de CCC+ a <strong>B-</strong> en mayo 2026. Esto habilito a fondos institucionales que por mandato no podian comprar bonos CCC+, generando nueva demanda. Ademas, estos bonos cotizan bajo la par (precio 84.5), lo que da doble retorno: cupon + ganancia de capital.</p>
+    <span class="research-tag">BofA: OW soberanos, target 92.0</span>
+    <span class="research-tag">IEB: catalizador Fitch B-</span>
+    <span class="research-tag">Mariva: 12% upside en GD35</span>
+
+    <h4>Ejemplo con $1.000.000 de pesos</h4>
+    <p style="font-size:0.85rem;color:#888;">Tipo de cambio supuesto: $1.400/USD (consenso BofA para junio 2026)</p>
+
+    <div class="ejemplo-box">
+      <div class="ejemplo-title">Inversion en Bonos Soberanos (25% del fondo = $250.000 ARS)</div>
+      <div class="ejemplo-row"><span>Capital invertido en pesos</span><span>$250.000 ARS</span></div>
+      <div class="ejemplo-row"><span>Equivalente en USD (a $1.400)</span><span>USD 178</span></div>
+      <div class="ejemplo-row"><span>Precio de compra del bono</span><span>84.5 (bajo la par)</span></div>
+      <div class="ejemplo-row"><span>Cupon anual (~9% en USD)</span><span>USD 16 / $22.400 ARS</span></div>
+      <div class="ejemplo-row"><span>Ganancia de capital proyectada (BofA)</span><span>+8.9% = USD 15.8</span></div>
+      <div class="ejemplo-row"><span>Retorno total en 12 meses (USD)</span><span>USD 31.8 (+17.8%)</span></div>
+    </div>
+
+    <div class="tipo-cambio-box">
+      <h4>Efecto tipo de cambio</h4>
+      <div class="tc-row"><span>Si el dolar sube a $1.676 (consenso diciembre 2026)</span><span>+19.7% sobre el capital</span></div>
+      <div class="tc-row"><span>Retorno total en pesos (cupon + capital + TC)</span><span>~+40% en ARS</span></div>
+      <div class="tc-row"><span>Riesgo: si el peso se aprecia</span><span>el retorno en pesos baja</span></div>
+    </div>
+  </div>
+
+  <!-- TRAMO 2 - CER -->
+  <div class="expl-card c2">
+    <div class="expl-header">
+      <div>
+        <div class="expl-title">Tramo 2 - Bonos CER (ajustados por inflacion)</div>
+        <div style="font-size:0.85rem;color:#666;margin-top:4px;">TZXS8 / DICP &nbsp;|&nbsp; Rendimiento: CER + 5% a CER + 8.3% real</div>
+      </div>
+      <div class="expl-pct">20%</div>
+    </div>
+
+    <h4>Que son</h4>
+    <p>Son bonos en pesos cuyo capital se actualiza diariamente por el indice CER (que sigue a la inflacion). Es decir, si la inflacion sube, el capital del bono sube con ella. Encima pagan un interes adicional (spread) sobre esa actualizacion.</p>
+
+    <div class="formula-box">Retorno real = Inflacion (CER) + Spread fijo
+Ejemplo: si inflacion anual = 50% y spread = 7%
+Retorno nominal = (1 + 0.50) x (1 + 0.07) - 1 = 60.5% en pesos</div>
+
+    <h4>Por que los recomienda PULSO</h4>
+    <p>Bull Capital detecto una <strong>dislocacion de mercado</strong>: el bono TZXS8 paga CER+8.3% mientras el TZXD7 paga CER+5%, siendo riesgos similares. Esa diferencia de 300 puntos basicos por solo un ano mas de plazo es una ineficiencia que el fondo aprovecha.</p>
+    <span class="research-tag">Bull Capital: +300bps dislocacion</span>
+    <span class="research-tag">Parakeet: TIR proyectada 29.5%</span>
+    <span class="research-tag">BCRA REM: inflacion 2.1% mayo</span>
+
+    <h4>Ejemplo con $1.000.000 de pesos</h4>
+    <div class="ejemplo-box">
+      <div class="ejemplo-title">Inversion en CER Largo (20% del fondo = $200.000 ARS)</div>
+      <div class="ejemplo-row"><span>Capital invertido</span><span>$200.000 ARS</span></div>
+      <div class="ejemplo-row"><span>Actualizacion por inflacion estimada (50% anual)</span><span>+$100.000 ARS</span></div>
+      <div class="ejemplo-row"><span>Spread adicional sobre capital actualizado (7%)</span><span>+$21.000 ARS</span></div>
+      <div class="ejemplo-row"><span>Capital + retorno al ano</span><span>$321.000 ARS</span></div>
+      <div class="ejemplo-row"><span>Retorno total en pesos</span><span>+60.5% en ARS</span></div>
+    </div>
+
+    <div class="ejemplo-box rojo">
+      <div class="ejemplo-title rojo">Importante: estos bonos son en pesos</div>
+      <p style="font-size:0.88rem;margin:0;">Si el tipo de cambio sube mas que la inflacion, el retorno en dolares puede ser menor. Por eso el fondo combina CER con bonos en USD para diversificar.</p>
+    </div>
+  </div>
+
+  <!-- TRAMO 3 - ACCIONES -->
+  <div class="expl-card c3">
+    <div class="expl-header">
+      <div>
+        <div class="expl-title">Tramo 3 - Acciones Oil &amp; Gas</div>
+        <div style="font-size:0.85rem;color:#666;margin-top:4px;">VIST / PAM / YPF &nbsp;|&nbsp; Upside proyectado: 12-25%</div>
+      </div>
+      <div class="expl-pct">20%</div>
+    </div>
+
+    <h4>Que son</h4>
+    <p>Son <strong>acciones de empresas</strong> del sector petroleo y gas que cotizan en el Merval y en Wall Street (ADRs). A diferencia de los bonos, no tienen un retorno fijo: ganamos si el precio de la accion sube, y recibimos dividendos si la empresa los paga.</p>
+
+    <h4>Por que pueden subir (segun los research)</h4>
+    <p><strong>1. Vaca Muerta:</strong> 1816 proyecta que las exportaciones de oil &amp; gas lleguen a USD 43.000 millones anuales en la proxima administracion, el doble de una cosecha record de soja. Es una transformacion estructural de la economia argentina.</p>
+    <p><strong>2. Resultados operativos records:</strong> Pampa Energia reporto EBITDA +48% interanual y TGS +19% (Mariva). Cuando las ganancias suben, el precio de la accion sube.</p>
+    <p><strong>3. El Merval esta barato:</strong> IEB senala que el Merval esta rezagado respecto al rally de bonos. Hay un catch-up pendiente, especialmente en el sector energetico.</p>
+    <p><strong>4. RIGI:</strong> Facimex reporta USD 100.000 millones en proyectos aprobados bajo el RIGI + Chevron anunciando USD 10.000 millones. Esto genera flujo de inversion masivo al sector.</p>
+    <span class="research-tag">1816: USD 43B exportaciones O&G</span>
+    <span class="research-tag">Mariva: PAM target USD 110</span>
+    <span class="research-tag">IEB: Merval rezagado</span>
+    <span class="research-tag">Facimex: RIGI USD 100B+</span>
+
+    <h4>Ejemplo con $1.000.000 de pesos</h4>
+    <p style="font-size:0.85rem;color:#888;">Tipo de cambio: $1.400/USD</p>
+    <div class="ejemplo-box">
+      <div class="ejemplo-title">Escenario optimista - Inversion en acciones (20% = $200.000 ARS)</div>
+      <div class="ejemplo-row"><span>Capital invertido</span><span>$200.000 ARS / USD 143</span></div>
+      <div class="ejemplo-row"><span>Upside proyectado en USD (Mariva, 12 meses)</span><span>+20% = USD 28.6</span></div>
+      <div class="ejemplo-row"><span>Valor al cabo de 12 meses (USD)</span><span>USD 171.6</span></div>
+      <div class="ejemplo-row"><span>En pesos al TC $1.676 (diciembre 2026)</span><span>$287.600 ARS</span></div>
+      <div class="ejemplo-row"><span>Retorno total en pesos</span><span>+43.8%</span></div>
+    </div>
+    <div class="ejemplo-box rojo">
+      <div class="ejemplo-title rojo">Riesgo: las acciones no tienen piso garantizado</div>
+      <p style="font-size:0.88rem;margin:0;">A diferencia de los bonos, las acciones pueden caer. Si el contexto macro se deteriora o hay ruido electoral 2027, el Merval puede corregir. Por eso representan solo el 20% del fondo.</p>
+    </div>
+  </div>
+
+  <!-- TRAMO 4 - ONs -->
+  <div class="expl-card c4">
+    <div class="expl-header">
+      <div>
+        <div class="expl-title">Tramo 4 - Obligaciones Negociables de Empresas</div>
+        <div style="font-size:0.85rem;color:#666;margin-top:4px;">YPF ON / TGS ON / PAE ON &nbsp;|&nbsp; Rendimiento: 7-9% en USD</div>
+      </div>
+      <div class="expl-pct">15%</div>
+    </div>
+
+    <h4>Que son</h4>
+    <p>Las <strong>Obligaciones Negociables (ONs)</strong> son bonos emitidos por empresas privadas (no el Estado). Cuando compras una ON de YPF, le estas prestando plata a YPF, que te paga un interes fijo en dolares y te devuelve el capital al vencimiento.</p>
+
+    <h4>Diferencia con los bonos del Estado</h4>
+    <div class="formula-box">Rendimiento ON = Tasa libre de riesgo + Spread soberano + Spread corporativo
+
+Bono del Estado: solo tiene riesgo del pais
+ON de empresa:  tiene riesgo del pais + riesgo de la empresa especifica
+Pero YPF/TGS/PAE exportan en USD --> sus ingresos estan dolarizados
+Por eso su riesgo de devaluacion es MUY BAJO</div>
+
+    <h4>Por que las recomienda PULSO</h4>
+    <p>YPF, TGS y PAE tienen ingresos en dolares porque exportan petroleo y gas. Esto las hace <strong>inmunes a la devaluacion del peso</strong>. Mariva reporta que ambas estan batiendo estimaciones de EBITDA con amplio margen.</p>
+    <span class="research-tag">Mariva: PAM EBITDA +48% YoY</span>
+    <span class="research-tag">Mariva: TGS EBITDA +19% YoY</span>
+    <span class="research-tag">1816: ingresos dolarizados como cobertura natural</span>
+
+    <h4>Cotizan bajo la par?</h4>
+    <p>Algunas si, otras no. Las ONs de mayor calidad crediticia (YPF, TGS) cotizan cerca de la par o levemente por debajo, con yields del 7-9% en USD que son atractivas para el riesgo que representan.</p>
+
+    <h4>Ejemplo con $1.000.000 de pesos</h4>
+    <div class="ejemplo-box">
+      <div class="ejemplo-title">Inversion en ONs corporativas (15% = $150.000 ARS = USD 107)</div>
+      <div class="ejemplo-row"><span>Capital invertido</span><span>$150.000 ARS / USD 107</span></div>
+      <div class="ejemplo-row"><span>Cupon anual promedio (8% en USD)</span><span>USD 8.5 / $11.900 ARS</span></div>
+      <div class="ejemplo-row"><span>Capital al vencimiento (en USD, sin devaluacion)</span><span>USD 107</span></div>
+      <div class="ejemplo-row"><span>Retorno en pesos con TC $1.676</span><span>$179.300 ARS</span></div>
+      <div class="ejemplo-row"><span>Retorno total en pesos (cupon + TC)</span><span>+27.5%</span></div>
+    </div>
+  </div>
+
+  <!-- TRAMO 5 - PROVINCIALES -->
+  <div class="expl-card c5">
+    <div class="expl-header">
+      <div>
+        <div class="expl-title">Tramo 5 - Bonos Provinciales</div>
+        <div style="font-size:0.85rem;color:#666;margin-top:4px;">Cordoba 2029 / Mendoza 2029 &nbsp;|&nbsp; Yield pickup: +80-120bps vs soberanos</div>
+      </div>
+      <div class="expl-pct">10%</div>
+    </div>
+
+    <h4>Que son</h4>
+    <p>Son bonos emitidos por <strong>provincias argentinas</strong> (Cordoba, Mendoza) en dolares. Son similares a los bonos del Estado nacional, pero emitidos por los gobiernos provinciales que tienen sus propias finanzas.</p>
+
+    <h4>Por que son mejores que los soberanos en este caso (segun Facimex)</h4>
+    <p>Cordoba y Mendoza tienen <strong>superavit fiscal propio</strong> y menor exposicion al riesgo electoral nacional. Sin embargo, el mercado les exige un rendimiento mayor que al soberano (yield pickup de +80 a +120 puntos basicos). Facimex concluye que ese spread es excesivo dado el riesgo real de estas provincias.</p>
+    <span class="research-tag">Facimex: rotacion soberanos a Cordoba/Mendoza</span>
+    <span class="research-tag">IEB: CABA emitio a 7.375% historico</span>
+
+    <h4>Cotizan bajo la par?</h4>
+    <p>Si, al igual que los soberanos, cotizan bajo la par. El upgrade de Fitch tambien beneficia a los bonos provinciales, generando el mismo efecto de ganancia de capital potencial.</p>
+
+    <h4>Ejemplo con $1.000.000 de pesos</h4>
+    <div class="ejemplo-box">
+      <div class="ejemplo-title">Inversion en Bonos Provinciales (10% = $100.000 ARS = USD 71)</div>
+      <div class="ejemplo-row"><span>Capital invertido</span><span>$100.000 ARS / USD 71</span></div>
+      <div class="ejemplo-row"><span>Rendimiento anual en USD (~9.5%)</span><span>USD 6.7 / $9.400 ARS</span></div>
+      <div class="ejemplo-row"><span>Ganancia de capital estimada (+80bps pickup)</span><span>+USD 4.2</span></div>
+      <div class="ejemplo-row"><span>Retorno total en USD (12 meses)</span><span>+15.4%</span></div>
+      <div class="ejemplo-row"><span>En pesos con TC $1.676</span><span>$135.600 ARS</span></div>
+    </div>
+  </div>
+
+  <!-- TRAMO 6 - DUALES -->
+  <div class="expl-card c6">
+    <div class="expl-header">
+      <div>
+        <div class="expl-title">Tramo 6 - Bonos Duales TAMAR-CER</div>
+        <div style="font-size:0.85rem;color:#666;margin-top:4px;">TZXO6 / Duales cortos &nbsp;|&nbsp; Funcion: liquidez con cobertura dual</div>
+      </div>
+      <div class="expl-pct">10%</div>
+    </div>
+
+    <h4>Que son</h4>
+    <p>Los <strong>bonos duales</strong> son instrumentos en pesos que pagan el <strong>mayor</strong> entre dos tasas: la tasa TAMAR (tasa de mercado de corto plazo) o la tasa CER (inflacion). Es como tener dos bonos en uno y cobrar siempre el mejor.</p>
+
+    <div class="formula-box">El inversor cobra:  MAX (TAMAR,  CER)
+
+Ejemplo mes a mes:
+- Si TAMAR = 2.5% mensual y CER = 2.1%  -->  cobra TAMAR (2.5%)
+- Si inflacion se dispara y CER = 3.2%    -->  cobra CER  (3.2%)
+Siempre gana con la tasa mas alta.</div>
+
+    <h4>Por que PULSO los incluye</h4>
+    <p>Parakeet Capital alerta sobre el <strong>"cliff de julio"</strong>: en julio hay un vencimiento estacional grande de pesos que obliga al Tesoro a tomar una decision dificil. Tener el 10% del fondo en duales liquidos permite aprovechar cualquier repricing que genere ese evento.</p>
+    <span class="research-tag">Parakeet: cliff de julio, demanda ARS +14%</span>
+    <span class="research-tag">Balanz: TZXO6 + Rofex, cobertura CER+FX</span>
+
+    <h4>Cotizan bajo la par?</h4>
+    <p>Los duales cortos generalmente cotizan <strong>cerca de la par o levemente bajo</strong>. Al ser instrumentos de corto plazo y con doble cobertura, el mercado no los castiga tanto como a los bonos largos.</p>
+
+    <h4>Ejemplo con $1.000.000 de pesos</h4>
+    <div class="ejemplo-box">
+      <div class="ejemplo-title">Inversion en Duales (10% = $100.000 ARS)</div>
+      <div class="ejemplo-row"><span>Capital invertido</span><span>$100.000 ARS</span></div>
+      <div class="ejemplo-row"><span>Escenario 1: gana TAMAR (23.1% TNA = ~2% mensual)</span><span>+$2.000/mes</span></div>
+      <div class="ejemplo-row"><span>Escenario 2: gana CER (inflacion 2.1% mensual)</span><span>+$2.100/mes</span></div>
+      <div class="ejemplo-row"><span>Siempre cobra la mayor de las dos</span><span>min $2.000/mes</span></div>
+      <div class="ejemplo-row"><span>Retorno estimado anual en pesos</span><span>+26-30% ARS</span></div>
+    </div>
+  </div>
+
+  <!-- RESUMEN FINAL -->
+  <div class="section-title">Resumen: que pasa con $1.000.000 de pesos en el fondo completo</div>
+  <div class="expl-card" style="border-top-color:#e94560;">
+    <p style="margin-bottom:14px;">Con tipo de cambio hoy $1.400/USD y proyeccion diciembre 2026 a $1.676/USD (consenso BCRA REM):</p>
+    <table style="width:100%;border-collapse:collapse;font-size:0.88rem;">
+      <thead>
+        <tr style="background:#0f3460;color:white;">
+          <th style="padding:10px 12px;text-align:left;">Tramo</th>
+          <th style="padding:10px 12px;text-align:right;">Inversion ARS</th>
+          <th style="padding:10px 12px;text-align:right;">Retorno estimado</th>
+          <th style="padding:10px 12px;text-align:right;">Ganancia ARS</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="background:#f8f9fb;">
+          <td style="padding:9px 12px;">Soberanos USD</td>
+          <td style="padding:9px 12px;text-align:right;">$250.000</td>
+          <td style="padding:9px 12px;text-align:right;">+40%</td>
+          <td style="padding:9px 12px;text-align:right;">+$100.000</td>
+        </tr>
+        <tr>
+          <td style="padding:9px 12px;">CER Largo</td>
+          <td style="padding:9px 12px;text-align:right;">$200.000</td>
+          <td style="padding:9px 12px;text-align:right;">+60%</td>
+          <td style="padding:9px 12px;text-align:right;">+$120.000</td>
+        </tr>
+        <tr style="background:#f8f9fb;">
+          <td style="padding:9px 12px;">Acciones O&amp;G</td>
+          <td style="padding:9px 12px;text-align:right;">$200.000</td>
+          <td style="padding:9px 12px;text-align:right;">+44%</td>
+          <td style="padding:9px 12px;text-align:right;">+$88.000</td>
+        </tr>
+        <tr>
+          <td style="padding:9px 12px;">ONs Corporativas</td>
+          <td style="padding:9px 12px;text-align:right;">$150.000</td>
+          <td style="padding:9px 12px;text-align:right;">+28%</td>
+          <td style="padding:9px 12px;text-align:right;">+$42.000</td>
+        </tr>
+        <tr style="background:#f8f9fb;">
+          <td style="padding:9px 12px;">Bonos Provinciales</td>
+          <td style="padding:9px 12px;text-align:right;">$100.000</td>
+          <td style="padding:9px 12px;text-align:right;">+35%</td>
+          <td style="padding:9px 12px;text-align:right;">+$35.000</td>
+        </tr>
+        <tr>
+          <td style="padding:9px 12px;">Duales TAMAR-CER</td>
+          <td style="padding:9px 12px;text-align:right;">$100.000</td>
+          <td style="padding:9px 12px;text-align:right;">+28%</td>
+          <td style="padding:9px 12px;text-align:right;">+$28.000</td>
+        </tr>
+        <tr style="background:#0f3460;color:white;font-weight:700;">
+          <td style="padding:11px 12px;">TOTAL DEL FONDO</td>
+          <td style="padding:11px 12px;text-align:right;">$1.000.000</td>
+          <td style="padding:11px 12px;text-align:right;">+41.3%</td>
+          <td style="padding:11px 12px;text-align:right;">+$413.000</td>
+        </tr>
+      </tbody>
+    </table>
+    <p style="font-size:0.78rem;color:#888;margin-top:12px;">* Retornos estimados en base a proyecciones de los 20 research de PULSO. No constituyen garantia de rendimiento futuro. Incluyen efecto tipo de cambio.</p>
+  </div>
+
+</main>
+
+<footer>PULSO Finance - Sintesis de 20 research bancarios - Mayo 2026 - Exposicion Oral Matematica Financiera</footer>
+
 <script>
   const ctx = document.getElementById('torta').getContext('2d');
   new Chart(ctx, {
     type: 'doughnut',
     data: {
-      labels: ['Soberanos USD Cortos','CER Largo','Acciones Oil and Gas','ONs Corporativas','Bonos Provinciales','Duales TAMAR-CER'],
+      labels: ['Soberanos USD Cortos','CER Largo','Acciones Oil & Gas','ONs Corporativas','Bonos Provinciales','Duales TAMAR-CER'],
       datasets: [{
         data: [25, 20, 20, 15, 10, 10],
         backgroundColor: ['#e94560','#457b9d','#2a9d8f','#e9c46a','#f4a261','#a8dadc'],
